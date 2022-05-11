@@ -1,8 +1,8 @@
+import React from "react"
 import { useRef } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useStore, actions } from "./store"
-import Home from "./pages/Home"
-import Following from "./pages/Following"
+import { publicRoutes } from "@/routes"
 
 function App() {
   const [state, dispatch] = useStore()
@@ -11,8 +11,10 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/following" element={<Following />} />
+          {publicRoutes.map((route, index) => {
+            const Page = route.component
+            return <Route path={route.path} element={<Page />} />
+          })}
         </Routes>
       </div>
     </BrowserRouter>
